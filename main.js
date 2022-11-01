@@ -51,6 +51,7 @@ function newQuestion() {
     // Add correct answer text to the randomly selected choice box
     let correctAnswerText = questions[questionNumber].Correct;
     document.getElementById(`choice-${correctAnswerBox}`).innerText = correctAnswerText;
+    // REMOVE QUESTION FROM QUESTIONS ARRAY
 
     //Add incorrect answers to remaining empty choice boxes
     for (let i=0; i<arr.length; i++) {
