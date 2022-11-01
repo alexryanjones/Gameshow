@@ -74,6 +74,10 @@ body {
 
 }
 
+.choice:hover {
+    cursor: pointer;
+}
+
 .level {
     margin: 2px;
     height: 8%;
@@ -83,5 +87,22 @@ body {
     justify-content: center;
     align-items: center;
     border-radius: 10px;
+}
 
+.correctChoice {
+    background-color: green;
+}
+
+.incorrectChoice {
+    background-color: red;
+}
+
+.correctLevel {
+    color: green;
+    font-weight: bold;
+}
+
+.incorrectLevel {
+    color: orangered;
+    font-weight: bold;
 }

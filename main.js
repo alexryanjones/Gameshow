@@ -2,14 +2,15 @@ import questions from "./questions.js"
 let questionText;
 let choicesText;
 
-let correctAnswer = 0;
+let correctAnswer;
+let finalAnswer;
+let currentQuestion = 1;
 
 
 window.onload = function () {
     newQuestion();
-    populateScoreboard()
-    console.log(document.getElementById("choices"));
-    console.log(questions)
+    populateScoreboard();
+    
 }
 
 function populateScoreboard() {
@@ -30,9 +31,8 @@ function newQuestion() {
         const choice = document.createElement("div");
         choice.classList.add("choice");
         choice.setAttribute("id", `choice-${i}`);
-        console.log(typeof document.getElementById("choices"))
         document.getElementById("choices").append(choice);
-        document.getElementById(`choice-${i}`).addEventListener("click", answerSelect);
+        document.getElementById(`choice-${i}`).addEventListener("click", answerSelect, { once: true });
     }
 
     // Select question from question array
@@ -63,6 +63,48 @@ function newQuestion() {
 }
 
 function answerSelect() {
-    console.log(this.id === correctAnswer);
+    // Retreives the id of the clicked choice and compares it with the correct answer, then adds the relevant class to the HTML element
+    let finalAnswer = this.id;
+    // Remove event listener from other choices
+    let notSelected = document.querySelectorAll("div.choice");
+    notSelected.forEach((item) => {
+        item.removeEventListener("click", answerSelect);
+      });
+    // Adds the class to the clicked choice, then calls a function to proceed (if correct, this happens after a delay.)
+    if (finalAnswer === correctAnswer) {
+        document.getElementById(this.id).classList.add("correctChoice");
+        setTimeout(correctAnswerChosen, 2000)
+    } else {
+        document.getElementById(this.id).classList.add("incorrectChoice");
+        incorrectAnswerChosen();
+    };
+    
 }
 
+function correctAnswerChosen() {
+    // Reset all changed ids and classes and remove inner text (except for the scoreboard)
+    let target = document.getElementById("choices")
+    function removeAllChildNodes(parent) {
+        while (parent.firstChild) {
+            parent.removeChild(parent.firstChild);
+        }
+    }
+    removeAllChildNodes(target);
+    // document.getElementById("choices").removeChild()
+    newQuestion();
+    // Change the colour of the level number in the scoreboard corresponding to the correctly answered question
+    currentQuestion ++;
+    document.getElementById(`level-${currentQuestion - 1}`).classList.add("correctLevel");
+}
+
+function incorrectAnswerChosen() {
+    // Score is shown on screen
+    // Restart game button shows
+    // Change colour of the level number in the scoreboard corresponding to the incorrectly answered question
+    if (currentQuestion === 1) {
+        document.getElementById(`level-${currentQuestion}`).classList.add("incorrectLevel");
+    } else {
+        document.getElementById(`level-${currentQuestion - 1}`).classList.add("incorrectLevel");
+    }
+    console.log("shit");
+}
