@@ -1,4 +1,4 @@
-const questions = [
+const questionsArray = [
     {
         Number: "",
         Question: "What is the largest canyon in the world?",
@@ -91,4 +91,4 @@ const questions = [
     },
 ];
 
-export default questions;
+export default questionsArray;

@@ -1,4 +1,5 @@
-import questions from "./questions.js"
+import questionsArray from "./questions.js"
+let questions = questionsArray.map(x => x);
 let questionText;
 let choicesText;
 let scoreMultiplier = 1000;
@@ -8,12 +9,10 @@ let finalAnswer;
 let currentQuestion = 1;
 
 
+
 window.onload = function () {
     populateScoreboard();
-    newQuestion();
-    
-    
-    
+    newQuestion();    
 }
 
 function populateScoreboard() {
@@ -63,6 +62,9 @@ function newQuestion() {
         document.getElementById(`choice-${arr[i]}`).innerText = incorrectAnswerText;
     }
     
+    // Remove question from questions array
+    questions.splice(questionNumber, 1);
+    console.log(questions);
 }
 
 function answerSelect() {
@@ -117,15 +119,7 @@ function incorrectAnswerChosen() {
     
 
     // Change colour of the level number in the scoreboard corresponding to the incorrectly answered question
-    /*
-    if (currentQuestion === 1) {
-        document.getElementById(`level-${currentQuestion}`).classList.replace("currentLevel", "incorrectLevel");
-    } else {
-        document.getElementById(`level-${currentQuestion - 1}`).classList.replace("currentLevel", "incorrectLevel");
-    }
-    */
     document.getElementById(`level-${currentQuestion}`).classList.replace("currentLevel", "incorrectLevel");
-    console.log("shit");
 }
 
 function restartGame() {
