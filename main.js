@@ -22,7 +22,6 @@ function populateScoreboard() {
         level.setAttribute("id", `level-${i}`);
         document.getElementById("scoreboard").append(level);
         document.getElementById(`level-${i}`).innerText = `${i} - £${i*scoreMultiplier}`;
-
     }
 }
 
@@ -93,7 +92,6 @@ function correctAnswerChosen() {
         }
     }
     removeAllChildNodes(target);
-    // document.getElementById("choices").removeChild()
     newQuestion();
     // Change the colour of the level number in the scoreboard corresponding to the correctly answered question
     currentQuestion ++;
@@ -101,13 +99,15 @@ function correctAnswerChosen() {
 }
 
 function incorrectAnswerChosen() {
-    // Score is shown on screen
-    // Restart game button shows
-    
+    // Restart game button shows & Score is displayed
     const restartButton = document.createElement("button");
     restartButton.classList.add("restart-button");
     restartButton.setAttribute("id", "restartButton");
-    document.getElementById("endgameMessage").innerText = `You take home a measly £${currentQuestion * scoreMultiplier}`
+    if (currentQuestion === 1) {
+        document.getElementById("endgameMessage").innerText = "You go home with nothing.";
+    } else {
+        document.getElementById("endgameMessage").innerText = `You take home a measly £${currentQuestion * scoreMultiplier}.`
+    }
     document.getElementById("endgameMessage").append(restartButton);
     document.getElementById("restartButton").innerText = "Restart?";
     document.getElementById("restartButton").addEventListener("click", restartGame, { once: true });
@@ -125,4 +125,33 @@ function incorrectAnswerChosen() {
 
 function restartGame() {
     console.log("restart");
+    // Remove the scoreboard and choices divs from the HTML
+    let targetScoreboard = document.getElementById("scoreboard")
+    function removeAllChildNodes(parent) {
+        while (parent.firstChild) {
+            parent.removeChild(parent.firstChild);
+        }
+    }
+
+    let targetChoices = document.getElementById("choices")
+    function removeAllChildNodes(parent) {
+        while (parent.firstChild) {
+            parent.removeChild(parent.firstChild);
+        }
+    }
+    removeAllChildNodes(targetScoreboard);
+    removeAllChildNodes(targetChoices);
+
+    // Reset current current question to first question again
+    currentQuestion = 1;
+
+    // Hide the endgame screen
+    document.getElementById("endgameMessage").classList.replace("show", "hidden");
+
+    // newQuestion and populateScoreboard functions will manage their own divs in the HTML
+    newQuestion()
+    populateScoreboard()
+
+    // Reset the questions array
+
 };
