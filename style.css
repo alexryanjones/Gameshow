@@ -16,8 +16,9 @@ body {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    border: 1px solid purple;
-    background: solid black;
+    background-color: rgb(48, 48, 99);
+    color: antiquewhite;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .quiz-wrapper {
@@ -27,7 +28,6 @@ body {
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    border: 1px solid red;
 }
 
 .endgame-message {
@@ -36,7 +36,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: rgba(0, 0, 0, 0.8);
     justify-content: center;
     align-items: center;
     color: antiquewhite;
@@ -54,34 +54,34 @@ body {
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    border: 1px solid blue;
 }
 
 .question {
     height: 50%;
     width: 95%;
-    border: 1px solid green;
+    border: 2px solid rgb(113, 182, 250);
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 10px;
 }
 
 .choices-wrapper {
 
     height: 40%;
     width: 95%;
-    border: 1px solid yellow;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: space-evenly;
     align-items: center;
+    border-radius: 10px;
 }
 
 .choice {
     height: 40%;
     width: 48%;
-    border: 1px solid black;
+    border: 2px solid rgb(113, 182, 250);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -97,7 +97,7 @@ body {
     margin: 2px;
     height: 8%;
     width: 80%;
-    border: 1px solid pink;
+    border: 2px solid rgb(113, 182, 250);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -107,6 +107,7 @@ body {
 .restart-button {
     font-size: 2rem;
     border: 1px solid black;
+    border-radius: 3px;
     padding: 0.25em, 0.5em;
     cursor: pointer;
 }
@@ -118,11 +119,11 @@ body {
 }
 
 .correctChoice {
-    background-color: green;
+    animation: correct-animation 4s;
 }
 
 .incorrectChoice {
-    background-color: red;
+    animation: incorrect-animation 4s;
 }
 
 .correctLevel {
@@ -142,4 +143,18 @@ body {
 .show {
     display: flex;
     flex-wrap: wrap;
+}
+
+@keyframes correct-animation {
+    0% {background-color: rgb(233, 227, 41);}
+    50% {background-color: rgb(233, 227, 41);}
+    60% {background-color: green;}
+    100% {background-color: green;}
+}
+
+@keyframes incorrect-animation {
+    0% {background-color: rgb(233, 227, 41);}
+    50% {background-color: rgb(233, 227, 41);}
+    60% {background-color: red;}
+    100% {background-color: red;}
 }

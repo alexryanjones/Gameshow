@@ -70,15 +70,14 @@ function answerSelect() {
     let notSelected = document.querySelectorAll("div.choice");
     notSelected.forEach((item) => {
         item.removeEventListener("click", answerSelect);
-      });
+      });    
     // Adds the class to the clicked choice, then calls a function to proceed (if correct, this happens after a delay.)
     if (finalAnswer === correctAnswer) {
-    //    currentScore +
-        document.getElementById(this.id).classList.add("correctChoice");
-        setTimeout(correctAnswerChosen, 2000)
+        document.getElementById(this.id).classList.add("correctChoice")
+        setTimeout(correctAnswerChosen, 4000);
     } else {
         document.getElementById(this.id).classList.add("incorrectChoice");
-        incorrectAnswerChosen();
+        setTimeout(incorrectAnswerChosen, 4000)
     };
     
 }
