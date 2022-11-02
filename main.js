@@ -9,8 +9,10 @@ let currentQuestion = 1;
 
 
 window.onload = function () {
-    newQuestion();
     populateScoreboard();
+    newQuestion();
+    
+    
     
 }
 
@@ -23,6 +25,8 @@ function populateScoreboard() {
         document.getElementById("scoreboard").append(level);
         document.getElementById(`level-${i}`).innerText = `${i} - £${i*scoreMultiplier}`;
     }
+    // Add a white font colour to the current level
+    document.getElementById(`level-${currentQuestion}`).classList.add("currentLevel");
 }
 
 function newQuestion() {
@@ -53,13 +57,11 @@ function newQuestion() {
     document.getElementById(`choice-${correctAnswerBox}`).innerText = correctAnswerText;
     // REMOVE QUESTION FROM QUESTIONS ARRAY
 
-    //Add incorrect answers to remaining empty choice boxes
+    // Add incorrect answers to remaining empty choice boxes
     for (let i=0; i<arr.length; i++) {
         let incorrectAnswerText = questions[questionNumber].Incorrect[i];
         document.getElementById(`choice-${arr[i]}`).innerText = incorrectAnswerText;
     }
-
-    
     
 }
 
@@ -94,7 +96,8 @@ function correctAnswerChosen() {
     newQuestion();
     // Change the colour of the level number in the scoreboard corresponding to the correctly answered question
     currentQuestion ++;
-    document.getElementById(`level-${currentQuestion - 1}`).classList.add("correctLevel");
+    document.getElementById(`level-${currentQuestion}`).classList.add("currentLevel");
+    document.getElementById(`level-${currentQuestion - 1}`).classList.replace("currentLevel", "correctLevel");
 }
 
 function incorrectAnswerChosen() {
@@ -114,11 +117,14 @@ function incorrectAnswerChosen() {
     
 
     // Change colour of the level number in the scoreboard corresponding to the incorrectly answered question
+    /*
     if (currentQuestion === 1) {
-        document.getElementById(`level-${currentQuestion}`).classList.add("incorrectLevel");
+        document.getElementById(`level-${currentQuestion}`).classList.replace("currentLevel", "incorrectLevel");
     } else {
-        document.getElementById(`level-${currentQuestion - 1}`).classList.add("incorrectLevel");
+        document.getElementById(`level-${currentQuestion - 1}`).classList.replace("currentLevel", "incorrectLevel");
     }
+    */
+    document.getElementById(`level-${currentQuestion}`).classList.replace("currentLevel", "incorrectLevel");
     console.log("shit");
 }
 
