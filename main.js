@@ -1,6 +1,7 @@
 import questions from "./questions.js"
 let questionText;
 let choicesText;
+let scoreMultiplier = 1000;
 
 let correctAnswer;
 let finalAnswer;
@@ -20,7 +21,7 @@ function populateScoreboard() {
         level.classList.add("level");
         level.setAttribute("id", `level-${i}`);
         document.getElementById("scoreboard").append(level);
-        document.getElementById(`level-${i}`).innerText = `${i} - £${i*1000}`;
+        document.getElementById(`level-${i}`).innerText = `${i} - £${i*scoreMultiplier}`;
 
     }
 }
@@ -73,6 +74,7 @@ function answerSelect() {
       });
     // Adds the class to the clicked choice, then calls a function to proceed (if correct, this happens after a delay.)
     if (finalAnswer === correctAnswer) {
+    //    currentScore +
         document.getElementById(this.id).classList.add("correctChoice");
         setTimeout(correctAnswerChosen, 2000)
     } else {
@@ -101,6 +103,17 @@ function correctAnswerChosen() {
 function incorrectAnswerChosen() {
     // Score is shown on screen
     // Restart game button shows
+    
+    const restartButton = document.createElement("button");
+    restartButton.classList.add("restart-button");
+    restartButton.setAttribute("id", "restartButton");
+    document.getElementById("endgameMessage").innerText = `You take home a measly £${currentQuestion * scoreMultiplier}`
+    document.getElementById("endgameMessage").append(restartButton);
+    document.getElementById("restartButton").innerText = "Restart?";
+    document.getElementById("restartButton").addEventListener("click", restartGame, { once: true });
+    document.getElementById("endgameMessage").classList.replace("hidden", "show");
+    
+
     // Change colour of the level number in the scoreboard corresponding to the incorrectly answered question
     if (currentQuestion === 1) {
         document.getElementById(`level-${currentQuestion}`).classList.add("incorrectLevel");
@@ -109,3 +122,7 @@ function incorrectAnswerChosen() {
     }
     console.log("shit");
 }
+
+function restartGame() {
+    console.log("restart");
+};
