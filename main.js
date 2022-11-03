@@ -6,7 +6,7 @@ let scoreMultiplier = 1000;
 
 let correctAnswer;
 let finalAnswer;
-let currentQuestion = 1;
+let currentQuestion = 0;
 
 
 
@@ -25,7 +25,7 @@ function populateScoreboard() {
         document.getElementById(`level-${i}`).innerText = `${i} - £${i*scoreMultiplier}`;
     }
     // Add a white font colour to the current level
-    document.getElementById(`level-${currentQuestion}`).classList.add("currentLevel");
+    document.getElementById(`level-${currentQuestion+1}`).classList.add("currentLevel");
 }
 
 function newQuestion() {
@@ -37,6 +37,10 @@ function newQuestion() {
         document.getElementById("choices").append(choice);
         document.getElementById(`choice-${i}`).addEventListener("click", answerSelect, { once: true });
     }
+
+    // Populate question number div
+    currentQuestion ++;
+    document.getElementById("questionNumber").innerText = `Question ${currentQuestion}`;
 
     // Select question from question array
     let questionNumber = Math.floor(Math.random() * questions.length);
@@ -54,7 +58,6 @@ function newQuestion() {
     // Add correct answer text to the randomly selected choice box
     let correctAnswerText = questions[questionNumber].Correct;
     document.getElementById(`choice-${correctAnswerBox}`).innerText = correctAnswerText;
-    // REMOVE QUESTION FROM QUESTIONS ARRAY
 
     // Add incorrect answers to remaining empty choice boxes
     for (let i=0; i<arr.length; i++) {
@@ -64,7 +67,6 @@ function newQuestion() {
     
     // Remove question from questions array
     questions.splice(questionNumber, 1);
-    console.log(questions);
 }
 
 function answerSelect() {
@@ -81,7 +83,7 @@ function answerSelect() {
         setTimeout(correctAnswerChosen, 4000);
     } else {
         document.getElementById(this.id).classList.add("incorrectChoice");
-        setTimeout(incorrectAnswerChosen, 4000)
+        setTimeout(incorrectAnswerChosen, 4000);
     };
     
 }
@@ -96,10 +98,14 @@ function correctAnswerChosen() {
     }
     removeAllChildNodes(target);
     newQuestion();
+    
     // Change the colour of the level number in the scoreboard corresponding to the correctly answered question
-    currentQuestion ++;
+    // currentQuestion ++;
     document.getElementById(`level-${currentQuestion}`).classList.add("currentLevel");
     document.getElementById(`level-${currentQuestion - 1}`).classList.replace("currentLevel", "correctLevel");
+
+    // Call bank to check if question is multiple of 5
+    bank();
 }
 
 function incorrectAnswerChosen() {
@@ -123,7 +129,6 @@ function incorrectAnswerChosen() {
 }
 
 function restartGame() {
-    console.log("restart");
     // Remove the scoreboard and choices divs from the HTML
     let targetScoreboard = document.getElementById("scoreboard")
     function removeAllChildNodes(parent) {
@@ -154,3 +159,15 @@ function restartGame() {
     // Reset the questions array
 
 };
+
+function bank() {
+    // When a player answers 5 correct in a row
+    // Add a class styled with green background for the last 5 questions
+    if((currentQuestion - 1) % 5 == 0) {
+        for (let i=currentQuestion; i>currentQuestion - 6; i--) {
+            let target = document.getElementById(`level-${i}`);
+            target.classList.replace("correctLevel", "banked");
+        }
+    }
+    // Add a delay before each iteration which is shorter than the CSS animation
+}

@@ -30,6 +30,17 @@ body {
     align-items: center;
 }
 
+.question-number {
+    color: antiquewhite;
+    width: 15%;
+    height: 5%;
+    border: 2px solid rgb(113, 182, 250);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .endgame-message {
     position: fixed;
     top: 0;
@@ -69,7 +80,6 @@ body {
 }
 
 .choices-wrapper {
-
     height: 40%;
     width: 95%;
     display: flex;
@@ -130,7 +140,6 @@ body {
 
 .currentLevel {
     color: white;
-    
 }
 
 .correctLevel {
@@ -141,6 +150,11 @@ body {
 .incorrectLevel {
     color: orangered;
     font-weight: bold;
+}
+
+.banked {
+    color: antiquewhite;
+    background-color: green;
 }
 
 .hidden {
