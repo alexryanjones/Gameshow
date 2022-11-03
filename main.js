@@ -46,7 +46,7 @@ function newQuestion() {
     let questionNumber = Math.floor(Math.random() * questions.length);
 
     // Add the question properties as text in the relevant locations in the HTML
-    let questionText = questions[questionNumber].Question;
+    let questionText = questions[questionNumber].Question || "end";
     document.getElementById("question").innerText = questionText;
 
     // Select a random choice box to put the correct answer
@@ -89,6 +89,10 @@ function answerSelect() {
 }
 
 function correctAnswerChosen() {
+    if (currentQuestion === 15) {
+        gameWin();
+    } else {
+
     // Reset all changed ids and classes and remove inner text (except for the scoreboard)
     let target = document.getElementById("choices")
     function removeAllChildNodes(parent) {
@@ -103,9 +107,11 @@ function correctAnswerChosen() {
     // currentQuestion ++;
     document.getElementById(`level-${currentQuestion}`).classList.add("currentLevel");
     document.getElementById(`level-${currentQuestion - 1}`).classList.replace("currentLevel", "correctLevel");
+    }
 
     // Call bank to check if question is multiple of 5
     bank();
+
 }
 
 function incorrectAnswerChosen() {
@@ -154,6 +160,7 @@ function restartGame() {
 
     // Hide the endgame screen
     document.getElementById("endgameMessage").classList.replace("show", "hidden");
+    document.getElementById("winningMessage").classList.replace("show", "hidden");
 
     // newQuestion and populateScoreboard functions will manage their own divs in the HTML
     populateScoreboard()
@@ -179,5 +186,18 @@ function bank() {
 
     }
 };
+
+function gameWin() {
+    const winningMessageButton = document.createElement("button");
+    winningMessageButton.classList.add("winning-message-button");
+    winningMessageButton.setAttribute("id", "winningMessageButton");
+    
+    document.getElementById("winningMessage").innerText = `You win £${currentQuestion*scoreMultiplier}!`
+    document.getElementById("winningMessage").append(winningMessageButton);
+    document.getElementById("winningMessageButton").innerText = "Play Again?";
+    document.getElementById("winningMessageButton").addEventListener("click", restartGame, { once: true });
+    document.getElementById("winningMessage").classList.replace("hidden", "show");
+
+}
 
 

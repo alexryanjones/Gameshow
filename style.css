@@ -57,6 +57,22 @@ body {
     
 }
 
+.winning-message {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    color: antiquewhite;
+    font-size: 3rem;
+    flex-direction: column;
+    gap: 3%;
+    
+}
+
 .scoreboard {
     padding-top: 30px;
     padding-bottom: 30px;
@@ -125,6 +141,20 @@ body {
 }
 
 .restart-button:hover {
+    background-color: black;
+    color: white;
+    border-color: white;
+}
+
+.winning-message-button {
+    font-size: 2rem;
+    border: 1px solid black;
+    border-radius: 3px;
+    padding: 0.25em, 0.5em;
+    cursor: pointer;
+}
+
+.winning-message-button:hover {
     background-color: black;
     color: white;
     border-color: white;
