@@ -80,10 +80,10 @@ function answerSelect() {
     // Adds the class to the clicked choice, then calls a function to proceed (if correct, this happens after a delay.)
     if (finalAnswer === correctAnswer) {
         document.getElementById(this.id).classList.add("correctChoice")
-        setTimeout(correctAnswerChosen, 4000);
+        setTimeout(correctAnswerChosen, 2000);
     } else {
         document.getElementById(this.id).classList.add("incorrectChoice");
-        setTimeout(incorrectAnswerChosen, 4000);
+        setTimeout(incorrectAnswerChosen, 2000);
     };
     
 }
@@ -157,6 +157,7 @@ function restartGame() {
     populateScoreboard()
 
     // Reset the questions array
+    questions = questionsArray.map(x => x);
 
 };
 
@@ -165,9 +166,15 @@ function bank() {
     // Add a class styled with green background for the last 5 questions
     if((currentQuestion - 1) % 5 == 0) {
         for (let i=currentQuestion; i>currentQuestion - 6; i--) {
-            let target = document.getElementById(`level-${i}`);
-            target.classList.replace("correctLevel", "banked");
+            (function(index) {
+                setTimeout(function() { 
+                    let target = document.getElementById(`level-${i}`)
+                    target.classList.replace("correctLevel", "banked")
+                }, i * 100);
+            })(i);
         }
+
     }
-    // Add a delay before each iteration which is shorter than the CSS animation
-}
+};
+
+
