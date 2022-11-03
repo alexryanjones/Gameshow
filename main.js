@@ -113,11 +113,14 @@ function incorrectAnswerChosen() {
     const restartButton = document.createElement("button");
     restartButton.classList.add("restart-button");
     restartButton.setAttribute("id", "restartButton");
-    if (currentQuestion === 1) {
+    if (currentQuestion < 6) {
         document.getElementById("endgameMessage").innerText = "You go home with nothing.";
-    } else {
-        document.getElementById("endgameMessage").innerText = `You take home a measly £${currentQuestion * scoreMultiplier}.`
+    } else if (currentQuestion < 10) {
+        document.getElementById("endgameMessage").innerText = `You take home a measly £${5 * scoreMultiplier}.`
+    } else if (currentQuestion < 15) {
+        document.getElementById("endgameMessage").innerText = `You take home a measly £${10 * scoreMultiplier}.`
     }
+    
     document.getElementById("endgameMessage").append(restartButton);
     document.getElementById("restartButton").innerText = "Restart?";
     document.getElementById("restartButton").addEventListener("click", restartGame, { once: true });
@@ -147,14 +150,14 @@ function restartGame() {
     removeAllChildNodes(targetChoices);
 
     // Reset current current question to first question again
-    currentQuestion = 1;
+    currentQuestion = 0;
 
     // Hide the endgame screen
     document.getElementById("endgameMessage").classList.replace("show", "hidden");
 
     // newQuestion and populateScoreboard functions will manage their own divs in the HTML
-    newQuestion()
     populateScoreboard()
+    newQuestion()
 
     // Reset the questions array
     questions = questionsArray.map(x => x);
